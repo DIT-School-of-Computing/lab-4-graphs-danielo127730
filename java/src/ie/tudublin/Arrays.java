@@ -26,11 +26,15 @@ public class Arrays extends PApplet
 		}
 	}
 	int mode = 0;
+
 	public void keyPressed() {
+		
 		if (key >= '0' && key <= '9') {
 			mode = key - '0';
 		}
 		println(mode);
+		
+		
 	}
 
 
@@ -137,7 +141,41 @@ public class Arrays extends PApplet
 					rect(x, y, (width - 100) / months.length, h); 
 				}
 				break;
-		}
+
+			case 2:
+				colorMode(RGB,months.length);
+				// x + y axis lines
+				stroke(255,0,255);
+				line(50, 50, 50, 450);
+				line(50, 450, 450, 450);
+			
+				// labeled numbers for y-axis
+				for (int i = 0; i <= 420; i += 20) {
+					float yValue = map(i, 0, 420, 450, 50);
+					text(i, 20, yValue);
+				}
+			
+				// labeled months for x-axis
+				for (int i = 0; i < months.length; i++) {
+					float xValue = map(i, 0, months.length - 1, 50, width - 50); 
+					text(months[i], xValue, 470); 
+				}
+				 // Draw lines connecting points for each month
+				 stroke(255,0,0); 
+				 noFill(); 
+				 
+				 beginShape();
+				 for (int i = 0; i < months.length; i++) {
+					 float x = map(i, 0, months.length - 1, 50, width - 50); // Adjust the range to fit the width of the canvas
+					 float y = map(rainfall[i], 0, max(rainfall), 450, 50); // Adjust the range to fit the height of the canvas
+					 vertex(x, y); //specify the vertex coordinates
+				 }
+				 endShape();
+				 break;
+				
+				
+
+		}	
 		
 
 	}
