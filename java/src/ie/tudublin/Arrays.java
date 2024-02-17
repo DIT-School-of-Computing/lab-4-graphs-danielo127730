@@ -175,45 +175,57 @@ public class Arrays extends PApplet
 				 break;
 				 
 			case 3:
-				 colorMode(HSB, 360, 100, 100); // Set color mode to HSB with a maximum value of 360 for hue
-				 
-				 // Draw the pie chart
-				 float totalRainfall = 0;
-				 for (float rf : rainfall) {
-					 totalRainfall += rf;
-				 }
-				 
-				 float startAngle = 0; 
-				 for (int i = 0; i < months.length; i++) {
-					 // Calculate the angle for the current segment based on its proportion of the total rainfall
-					 float angle = map(rainfall[i], 0, totalRainfall, 0, TWO_PI);
-					 
-					 
-					 fill(map(i, 0, months.length, 0, 360), 100, 100); // Map hue value based on index of month
-					 
+				colorMode(HSB, 360, 100, 100); 
+				
+				float totalRainfall = 0;
+				for (float rf : rainfall) {
+					totalRainfall += rf;
+				}
+				
+				float startAngle = 0; 
+				for (int i = 0; i < months.length; i++) {
+					// Calculate the angle for the current segment based on its proportion of the total rainfall
+					float angle = map(rainfall[i], 0, totalRainfall, 0, TWO_PI);
 					
-					 arc(224, 184, 220, 220, startAngle, startAngle + angle, PIE);
-					 
-					 //follow up next angle
-					 startAngle += angle;
-				 }
+					fill(map(i, 0, months.length, 0, 360), 100, 100);
+					
+					// Draw segment of the pie chart
+					arc(224, 184, 220, 220, startAngle, startAngle + angle, PIE);
+					
+					
+					float labelAngle = startAngle + angle / 2;
+					float labelRadius = 180; 
+					float labelX = 224 + cos(labelAngle) * labelRadius;
+					float labelY = 184 + sin(labelAngle) * labelRadius;
+					
+					
+					textAlign(CENTER, CENTER);
+					fill(255); 
+					text(months[i], labelX, labelY);
+					
+					//followup angle
+					startAngle += angle;
+				}
+
+			 
 				 break;
 		}
 
 
 
 
-   		 }
+	}
 				
-				 
-			
-			
-				 
-				
-
-		
-		
-
 }
+				 
+			
+			
+				 
+				
+
+		
+		
+
+
 
 
