@@ -40,7 +40,7 @@ public class Arrays extends PApplet
 		size(500, 500);
 
 		String[] m1 = months;
-		months[0] = "XXX";
+		months[0] = "Jan";
 		print(m1[0]);
 		for(int i = 0; i < months.length; i ++)
 		{
@@ -104,35 +104,43 @@ public class Arrays extends PApplet
 	
 	public void draw()
 	{	
-		/* background(0);
-		float w = width / (float)months.length;
-		for(int i = 0 ; i < months.length ;  i ++)
-		{
-			float x = map1(i, 0, months.length, 0, width);
-			rect(x, height, w, -rainfall[i]);
-		}*/
-		
-		
+		 
 		switch (mode) {
 			case 1:
-			//x + y axis lines
+				colorMode(HSB, months.length); // Set color mode to HSB with a maximum value of months.length
+				
+				// x + y axis lines
 				stroke(255,0,255);
 				line(50, 50, 50, 450);
 				line(50, 450, 450, 450);
-
-			// labled numbers
-
-				for (int i =0; i<=420; i+=20){
+			
+				// labeled numbers for y-axis
+				for (int i = 0; i <= 420; i += 20) {
 					float yValue = map(i, 0, 420, 450, 50);
 					text(i, 20, yValue);
 				}
-
-
-				break;
-		
-			default:
+			
+				// labeled months for x-axis
+				for (int i = 0; i < months.length; i++) {
+					float xValue = map(i, 0, months.length - 1, 50, width - 50); 
+					text(months[i], xValue, 470); 
+				}
+				
+				// Draw bars for each month
+				for (int i = 0; i < months.length; i++) {
+					float x = map(i, 0, months.length - 1, 50, width - 50); // Adjust the range to fit the width of the canvas
+					float h = map(rainfall[i], 0, max(rainfall), 0, 400); // Adjust the range to fit the height of the canvas
+					float y = 450 - h; // Calculate height per bar
+					
+					// Set fill color for the bar using HSB
+					fill(i, months.length, months.length);
+					rect(x, y, (width - 100) / months.length, h); 
+				}
 				break;
 		}
+		
 
 	}
 }
+
+
