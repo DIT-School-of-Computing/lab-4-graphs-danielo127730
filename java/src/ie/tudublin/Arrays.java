@@ -25,6 +25,15 @@ public class Arrays extends PApplet
 			rainfall[i] = random(500);
 		}
 	}
+	int mode = 0;
+	public void keyPressed() {
+		if (key >= '0' && key <= '9') {
+			mode = key - '0';
+		}
+		println(mode);
+	}
+
+
 
 	public void settings()
 	{
@@ -89,19 +98,41 @@ public class Arrays extends PApplet
 		background(0);
 		randomize();
 		
-		
+		    
 	}
 
 	
 	public void draw()
 	{	
-
-		background(0);
+		/* background(0);
 		float w = width / (float)months.length;
 		for(int i = 0 ; i < months.length ;  i ++)
 		{
 			float x = map1(i, 0, months.length, 0, width);
 			rect(x, height, w, -rainfall[i]);
+		}*/
+		
+		
+		switch (mode) {
+			case 1:
+			//x + y axis lines
+				stroke(255,0,255);
+				line(50, 50, 50, 450);
+				line(50, 450, 450, 450);
+
+			// labled numbers
+
+				for (int i =0; i<=420; i+=20){
+					float yValue = map(i, 0, 420, 450, 50);
+					text(i, 20, yValue);
+				}
+
+
+				break;
+		
+			default:
+				break;
 		}
+
 	}
 }
